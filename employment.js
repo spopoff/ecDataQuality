@@ -36,7 +36,7 @@ termes.
 
 class ECemployment{
     constructor(personIdExternal, firstDateWorkedString, lastDateWorkedString, isContingentWorker,
-		emplStatus, employmentType, managerId, personId, company){
+		emplStatus, employmentType, managerId, personId, company, userId){
         this.personIdExternal = personIdExternal;
         this.firstDateWorkedString = firstDateWorkedString;
         this.lastDateWorkedString = lastDateWorkedString;
@@ -46,6 +46,7 @@ class ECemployment{
 		this.managerId = managerId;
 		this.personId = personId;
 		this.company = company;
+		this.userId = userId;
         this.associatedUserIds = [];
 		this.verified = true;
     }
@@ -63,7 +64,7 @@ function headListEmployment(){
     tha.appendChild(txha);
     tr.appendChild(tha);
     var thu = document.createElement('th');
-    var txhu = document.createTextNode('personIdExternal');
+    var txhu = document.createTextNode('personIdExternal / userId');
     thu.appendChild(txhu);
     tr.appendChild(thu);
     var thv = document.createElement('th');
@@ -86,7 +87,7 @@ function printRowEmployment(tab, unE){
     tda.appendChild(txda);
     tr.appendChild(tda);
     var tdu = document.createElement('td');
-    var txdu = document.createTextNode(unE.personIdExternal);
+    var txdu = document.createTextNode(unE.personIdExternal+" / "+unE.userId);
     tdu.appendChild(txdu);
     tr.appendChild(tdu);
     var tdv = document.createElement('td');
