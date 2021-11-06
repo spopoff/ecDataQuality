@@ -51,9 +51,9 @@ class ECemployment{
     }
 }
 ECemployment.prototype.getInfos = function(){
-    return this.personIdExternal+" "+ this.emplStatus+
-		" "+this.employmentType+" "+this.managerId+" "+this.firstDateWorkedString+
-		" "+this.lastDateWorkedString+" "+this.personId+" "+this.company;
+    return this.personIdExternal+" st="+ this.emplStatus+
+		" ty="+this.employmentType+" mng="+this.managerId+" 1st="+this.firstDateWorkedString+
+		" lst="+this.lastDateWorkedString+" cmp="+this.company;
 };
 function headListEmployment(){
     var table = document.createElement('table');
@@ -67,7 +67,7 @@ function headListEmployment(){
     thu.appendChild(txhu);
     tr.appendChild(thu);
     var thv = document.createElement('th');
-    var txhv = document.createTextNode('infos');
+    var txhv = document.createTextNode('infos (st=status, ty=Employment type, mng=Manager Id, 1st=1st date Worked, lst=last date worked, cmp=company');
     thv.appendChild(txhv);
     tr.appendChild(thv);
     table.appendChild(tr);
