@@ -53,6 +53,7 @@ ECperson.prototype.getInfos = function(){
 		" "+this.displayName;
 };
 var indxUid = [];
+var indxEmp = [];
 
 function headListPerson(){
     var table = document.createElement('table');
@@ -103,13 +104,16 @@ function printRowPerson(tab, unP){
 			});
 		}
 	}
-	var xe = document.createElement("A");
-	xe.text = " link to Employment ";
-	xe.id = unP.personId;
-	xe.href = "#pke="+unP.personId;
-	tdv.appendChild(xe);
-    tr.appendChild(tdv);
-    tab.appendChild(tr);
+	const unE = indxEmp.find(emp => emp === unP.personId)
+	if(unE !== undefined){
+		var xe = document.createElement("A");
+		xe.text = " link to Employment ";
+		xe.id = unP.personId;
+		xe.href = "#pke="+unP.personId;
+		tdv.appendChild(xe);
+	}
+	tr.appendChild(tdv);
+	tab.appendChild(tr);
 }
 /**
  * Fait la liste des Users
@@ -205,4 +209,7 @@ function createPersons(){
 		}
         
     });
+	ecemps.forEach(function(unE){
+		indxEmp.push(unE.personId);
+	});
 }
