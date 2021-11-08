@@ -217,7 +217,7 @@ function getUserInfo(pku){
         }
     });
 	if(tab === undefined){
-		setInfoTab(tableErr, "Not found="+pke);
+		setInfoTab(tableErr, "Not found="+pku);
 	}else{
 		activeOnglet("UserEc")
 		var div = document.getElementById("tablo");
