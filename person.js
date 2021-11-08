@@ -44,7 +44,8 @@ class ECperson{
 		this.countryOfBirth = countryOfBirth;
 		this.displayName = displayName;
         this.associatedUserIds = [];
-		this.verified = true;
+		//associé à User par défaut
+		this.verified = false;
     }
 }
 ECperson.prototype.getInfos = function(){
@@ -121,7 +122,8 @@ function getListPersons(inp, isReal){
     var nbP = 0;
     inp = inp.toLowerCase();
     ecpersons.forEach(function(unP){
-		if(isReal && !unP.verified){
+		if(isReal && unP.verified){
+			//Pas les Person avec User
 		}else{
 			if(inp !== ""){
 				var inf = "";
@@ -147,9 +149,10 @@ function getListPersons(inp, isReal){
 */
 function showListEcPerson(){
     var inu = document.getElementById("idnNmIdPer").value;
+	var isU = document.getElementById("isUser").checked;
     if(inu === undefined) inu = "";
     clearTablos();
-    getListPersons(inu, false);
+    getListPersons(inu, isU);
 }	
 /**
  * Fait le tableau d'un seul Person
@@ -195,6 +198,10 @@ function createPersons(){
 		}
 		if(indxU.indexOf(unU.personId) === -1){
 			unU.isAccount = true;
+		}else{
+			//alors Person sans User
+			const unP = ecpersons.find(per => per.personId === unU.personId)
+			unP.verified = true;
 		}
         
     });
