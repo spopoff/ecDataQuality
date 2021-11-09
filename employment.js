@@ -101,7 +101,7 @@ function printRowEmployment(tab, unE){
 	x.href = "#pkp="+unE.personId;
 	tdv.appendChild(x);
 	//lien vers un job ?
-	const jobUid = indxJob.find(job => job === unU.userId)
+	const jobUid = indxJob.find(job => job === unE.userId)
 	if(jobUid !== undefined){
 		var xe = document.createElement("A");
 		xe.text = " link to Job ";
