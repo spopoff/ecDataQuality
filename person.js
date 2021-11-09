@@ -233,10 +233,18 @@ function createPersons(){
 		}
         
     });
-	ecemps.forEach(function(unE){
-		indxEmp.push(unE.personId);
-	});
 	ecjobs.forEach(function(unJ){
 		indxJob.push(unJ.userId);
+		const mngUid = indxMng.find(mUid => mUid === unJ.managerId);
+		if(mngUid !== undefined){
+			unJ.hasManager = true;
+		}
+	});
+	ecemps.forEach(function(unE){
+		indxEmp.push(unE.personId);
+		const jobUid = indxJob.find(job => job === unE.userId)
+		if(jobUid !== undefined){
+			unE.hasJob = true;
+		}
 	});
 }

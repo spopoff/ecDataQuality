@@ -5,6 +5,7 @@
         <title>Sandbox Data Quality v0.5</title>
         <meta charset="UTF-8"/>
         <script src='jquery-3.3.1.min.js'></script>
+        <script src='Chart.min.js'></script>
         <script src='user.js'></script>
         <script src='person.js'></script>
         <script src='employment.js'></script>
@@ -15,6 +16,7 @@
         <script src='ecUsers.js'></script>
         <script src='ecEmployments.js'></script>
         <script src='ecJobs.js'></script>
+        <script src='dataChart.js'></script>
         <link rel='stylesheet' type='text/css' href='style.css'/>
     </head>
     <body>
@@ -28,6 +30,7 @@
 			<button id="IdPersonEc" class="tablinks" onclick="openTab(event, 'PersonEc')">Persons</button>
 			<button id="IdEmploymentEc" class="tablinks" onclick="openTab(event, 'EmploymentEc')">Employments</button>
 			<button id="IdJobEc" class="tablinks" onclick="openTab(event, 'JobEc')">Jobs</button>
+			<button class="tablinks" onclick="openTab(event, 'Metrics')">Metrics</button>
 		</div>
 		<div id="UserEc" class="tabcontent">
 			<label for="idnNmIdUsr">Partial User name or ID:</label>&nbsp;
@@ -50,6 +53,18 @@
 			<label for="idnNmIdJob">Partial info or ID:</label>&nbsp;
 			<input id="idnNmIdJob" type="text" size="20" />&nbsp;&nbsp;
 			<button onclick="showListEcJob()">Show list !</button>
+		</div>
+		<div id="Metrics" class="tabcontent500">
+			<label for="graf">Select Metric:&nbsp;</label><select id="grafs" class="orgas2" name="lesGrafs">
+				<option value="2_0">Nb of Users</option>
+				<option value="2_1">Nb of Persons</option>
+				<option value="2_2">Nb of Employments</option>
+				<option value="2_3">Nb of Jobs</option>
+			</select>
+			&nbsp;&nbsp;<button onclick="showGraph()">Show Graphic !</button><br/>
+			<div id="container1" class="boite">
+				<canvas id="chartUn"  class="chart-boite"></canvas>
+			</div>
 		</div>
 		<div id="infos"></div>
 		<div id="tabloRes"></div></br>

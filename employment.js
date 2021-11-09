@@ -48,7 +48,7 @@ class ECemployment{
 		this.company = company;
 		this.userId = userId;
         this.associatedUserIds = [];
-		this.verified = true;
+		this.hasJob = false;
     }
 }
 ECemployment.prototype.getInfos = function(){

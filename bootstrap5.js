@@ -43,6 +43,8 @@ var tableRes = {};
 var idnId = "";
 var idnNm = "";
 var idnSt = "";
+var color = Chart.helpers.color;
+var chartSeul = {};
 var comps = new Map();
 var compsEc = new Map();
 var chartSeul = {};
@@ -70,6 +72,8 @@ function openTab(evt, tabName) {
     for (i = 0; i < tabcontent.length; i++) {
       tabcontent[i].style.display = "none";
     }
+    var tabGraph = document.getElementsByClassName("tabcontent500");
+    tabGraph[0].style.display = "none";
     // Get all elements with class="tablinks" and remove the class "active"
     tablinks = document.getElementsByClassName("tablinks");
     for (i = 0; i < tablinks.length; i++) {

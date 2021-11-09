@@ -58,6 +58,7 @@ class ECjob{
 		this.userId = userId;
 		this.personIdExternal = userId;
 		this.isMultiJob = false;
+		this.hasManager = false;
     }
 }
 ECjob.prototype.getInfos = function(){
@@ -102,9 +103,8 @@ function printRowJob(tab, unJ){
 	x.href = "#pkx="+unJ.personIdExternal;
 	tdv.appendChild(x);
 	//lien vers manager
-	var xx = document.createElement("A");
-	const mngUid = indxMng.find(mUid => mUid === unJ.managerId);
-	if(mngUid !== undefined){
+	if(unJ.hasManager){
+		var xx = document.createElement("A");
 		xx.text = " linked  to Manager "+unJ.managerId;
 		xx.id = unJ.managerId;
 		xx.href = "#pkm="+unJ.managerId;
@@ -157,14 +157,9 @@ function showListEcJob(){
  */
 function getJobInfo(pkj){
     clearTablos();
-	var p = Number(pkj);
 	var tab = undefined;
     ecjobs.forEach(function(unJ){
-		var p1 = Number(unJ.personId);
-		if(6117 === p1){
-			console.log("trouvé 6117");
-		}
-        if(p === p1){
+        if(pkj === unJ.personIdExternal){
 			tab = headListJob();
             printRowJob(tab, unJ);
         }
