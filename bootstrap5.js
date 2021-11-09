@@ -1,5 +1,5 @@
 /*
-Copyright Stéphane Georges Popoff, (juillet 2009 - juin 2021)
+Copyright Stéphane Georges Popoff, (juillet 2009 - novembre 2021)
 
 spopoff@rocketmail.com
 
@@ -51,6 +51,7 @@ var allAttrsEc = [];
 var ecusers = [];
 var ecpersons = [];
 var ecemps = [];
+var ecjobs = [];
 var lastSel = [];
 var lastSelState = 0; //0 fait rien vide; 1 collecte vide ajoute; 2 utilise
 /**
@@ -175,6 +176,15 @@ window.onhashchange = function( e ) {
         }
         if(prms.pke !== undefined){
             getEmploymentInfo(prms.pke);
+        }
+        if(prms.pkj !== undefined){
+            getJobInfo(prms.pkj);
+        }
+        if(prms.pkm !== undefined){
+            getPersonUserIdInfo(prms.pkm);
+        }
+        if(prms.pkx !== undefined){
+            getPersonUserIdInfo(prms.pkx);
         }
     }
 };

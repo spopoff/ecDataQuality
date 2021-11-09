@@ -33,19 +33,20 @@ pris connaissance de la licence [CeCILL|CeCILL-B|CeCILL-C], et que vous en avez 
 termes.
  */
 /* global ecjobs, tableRes, tooltip, Tooltips, lastSelState, lastSel, lastSelComp, comps, ecusers */
-
 class ECjob{
-    constructor(positionEntryDate, managerId, emplStatus, employeeClass,
-		emplStatus, employmentType, division, location, company, jobTitle,
-		event, eventReason, position, businessUnit, startDate, endDate){
+    constructor(positionEntryDate, managerId, emplStatus, employeeStatus, emplClass, employeeClass,
+		emplmType, employmentType, division, location, company, jobTitle,
+		event, eventReason, position, businessUnit, startDate, endDate, userId){
 		this.positionEntryDate = positionEntryDate;
 		this.managerId = managerId;
 		this.emplStatus = emplStatus;
+		this.emplClass = emplClass;
 		this.employeeClass = employeeClass;
 		this.employmentType = employmentType;
+		this.emplmType = emplmType;
+		this.employeeStatus = employeeStatus;
 		this.division = division;
 		this.location = location;
-		this.department = department;
 		this.company = company;
 		this.jobTitle = jobTitle;
 		this.event = event;
@@ -54,26 +55,27 @@ class ECjob{
 		this.businessUnit = businessUnit;
 		this.startDate = startDate;
 		this.endDate = endDate;
+		this.userId = userId;
+		this.personIdExternal = userId;
+		this.isMultiJob = false;
     }
 }
 ECjob.prototype.getInfos = function(){
-    return this.personIdExternal+" st="+ this.emplStatus+
-		" ty="+this.employmentType+" mng="+this.managerId+" 1st="+this.firstDateWorkedString+
-		" lst="+this.lastDateWorkedString+" cmp="+this.company;
+    return "st="+ this.employeeStatus+" cls="+this.employeeClass+
+		" ty="+this.employmentType+" mng="+this.managerId+" evtst="+this.startDate+
+		" evtnd="+this.endDate+" evt="+this.event+" "+this.eventReason+" cmp="+this.company;
 };
+var indxMng = [];
+
 function headListJob(){
     var table = document.createElement('table');
     var tr = document.createElement('tr');   
-    var tha = document.createElement('th');
-    var txha = document.createTextNode('personId');
-    tha.appendChild(txha);
-    tr.appendChild(tha);
     var thu = document.createElement('th');
     var txhu = document.createTextNode('personIdExternal / userId');
     thu.appendChild(txhu);
     tr.appendChild(thu);
     var thv = document.createElement('th');
-    var txhv = document.createTextNode('infos (st=status, ty=Employment type, mng=Manager Id, 1st=1st date Worked, lst=last date worked, cmp=company');
+    var txhv = document.createTextNode('infos (st=status, cls= employee class, ty=Employment type, mng=Manager Id, evtst=event start, evtnd=event end, evt=event, cmp=company');
     thv.appendChild(txhv);
     tr.appendChild(thv);
     table.appendChild(tr);
@@ -87,39 +89,43 @@ function headListJob(){
  */
 function printRowJob(tab, unJ){
     var tr = document.createElement('tr');   
-    var tda = document.createElement('td');
-    var txda = document.createTextNode(unE.personId);
-    tda.appendChild(txda);
-    tr.appendChild(tda);
     var tdu = document.createElement('td');
-    var txdu = document.createTextNode(unE.personIdExternal+" / "+unE.userId);
+    var txdu = document.createTextNode(unJ.personIdExternal+" / "+unJ.userId);
     tdu.appendChild(txdu);
     tr.appendChild(tdu);
     var tdv = document.createElement('td');
-	var txdv = document.createTextNode(unE.getInfos());
+	var txdv = document.createTextNode(unJ.getInfos());
 	tdv.appendChild(txdv);
 	var x = document.createElement("A");
-	x.text = " linked  to Person "+unE.personId;
-	x.id = unE.personId;
-	x.href = "#pkp="+unE.personId;
+	x.text = " linked  to Person "+unJ.personIdExternal;
+	x.id = unJ.personIdExternal;
+	x.href = "#pkx="+unJ.personIdExternal;
 	tdv.appendChild(x);
+	//lien vers manager
+	var xx = document.createElement("A");
+	const mngUid = indxMng.find(mUid => mUid === unJ.managerId);
+	if(mngUid !== undefined){
+		xx.text = " linked  to Manager "+unJ.managerId;
+		xx.id = unJ.managerId;
+		xx.href = "#pkm="+unJ.managerId;
+		tdv.appendChild(xx);
+	}
     tr.appendChild(tdv);
     tab.appendChild(tr);
 }
 /**
- * Fait la liste des Users
+ * Fait la liste des Jobs
  * @param {string} inj
- * @param {boolean} isReal
  * @returns {undefined}
  */
 function getListJobs(inj){
     var tab = headListJob();
     var nbP = 0;
-    ine = ine.toLowerCase();
+    inj = inj.toLowerCase();
     ecjobs.forEach(function(unJ){
-		if(ine !== ""){
+		if(inj !== ""){
 			var inf = "";
-			inf = unJ.getInfos();
+			inf = unJ.userId+" "+unJ.getInfos();
 			inf = inf.toLowerCase();
 			if(inf.includes(inj)){
 				printRowJob(tab, unJ);
@@ -130,19 +136,19 @@ function getListJobs(inj){
 			nbP++;
 		}
     });
-    setInfoTab(tableRes, "nb jobss="+nbP);
+    setInfoTab(tableRes, "nb jobs="+nbP);
     var div = document.getElementById("tablo");
     div.appendChild(tab);
     
 }
 /**
-* fait une liste dde Job
+* fait une liste de Job
 */
 function showListEcJob(){
     var inj = document.getElementById("idnNmIdJob").value;
     if(inj === undefined) inj = "";
     clearTablos();
-    getListJobs(ine);
+    getListJobs(inj);
 }	
 /**
  * Fait le tableau d'un seul Job
@@ -151,22 +157,22 @@ function showListEcJob(){
  */
 function getJobInfo(pkj){
     clearTablos();
-	var p = Number(pke);
+	var p = Number(pkj);
 	var tab = undefined;
-    ecemps.forEach(function(unE){
-		var p1 = Number(unE.personId);
+    ecjobs.forEach(function(unJ){
+		var p1 = Number(unJ.personId);
 		if(6117 === p1){
 			console.log("trouvé 6117");
 		}
         if(p === p1){
-			tab = headListEmployment();
-            printRowEmployment(tab, unE);
+			tab = headListJob();
+            printRowJob(tab, unJ);
         }
     });
 	if(tab === undefined){
-		setInfoTab(tableErr, "Not found="+pke);
+		setInfoTab(tableErr, "Not found="+pkj);
 	}else{
-		activeOnglet("EmploymentEc")
+		activeOnglet("JobEc")
 		var div = document.getElementById("tablo");
 		div.appendChild(tab);
 	}

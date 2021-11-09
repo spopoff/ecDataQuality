@@ -2,29 +2,32 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
     <head>
-        <title>Sandbox Data Quality v0.4</title>
+        <title>Sandbox Data Quality v0.5</title>
         <meta charset="UTF-8"/>
         <script src='jquery-3.3.1.min.js'></script>
         <script src='user.js'></script>
         <script src='person.js'></script>
         <script src='employment.js'></script>
+        <script src='job.js'></script>
         <script src='bootstrap5.js'></script>
         <script src='utils.js'></script>
         <script src='ecPersons.js'></script>
         <script src='ecUsers.js'></script>
         <script src='ecEmployments.js'></script>
+        <script src='ecJobs.js'></script>
         <link rel='stylesheet' type='text/css' href='style.css'/>
     </head>
     <body>
         <div id="entete" style="width: 80%">
             <img src='sap_usr.png' alt="logo" style="margin-right: 10px"/>
-            <h2 id="titre">Sandbox Data Quality v0.4</h2>
+            <h2 id="titre">Sandbox Data Quality v0.5</h2>
             <img src='t34_100.png' alt="logo" style="margin-right: 10px; width: 40px; float: right;margin-top: -50px"/>
         </div>
 		<div class="onglet">
 			<button id="IdUserEc" class="tablinks" onclick="openTab(event, 'UserEc')">Users</button>
 			<button id="IdPersonEc" class="tablinks" onclick="openTab(event, 'PersonEc')">Persons</button>
 			<button id="IdEmploymentEc" class="tablinks" onclick="openTab(event, 'EmploymentEc')">Employments</button>
+			<button id="IdJobEc" class="tablinks" onclick="openTab(event, 'JobEc')">Jobs</button>
 		</div>
 		<div id="UserEc" class="tabcontent">
 			<label for="idnNmIdUsr">Partial User name or ID:</label>&nbsp;
@@ -42,6 +45,11 @@
 			<label for="idnNmIdEmp">Partial info or ID:</label>&nbsp;
 			<input id="idnNmIdEmp" type="text" size="20" />&nbsp;&nbsp;
 			<button onclick="showListEcEmployment()">Show list !</button>
+		</div>
+		<div id="JobEc" class="tabcontent">
+			<label for="idnNmIdJob">Partial info or ID:</label>&nbsp;
+			<input id="idnNmIdJob" type="text" size="20" />&nbsp;&nbsp;
+			<button onclick="showListEcJob()">Show list !</button>
 		</div>
 		<div id="infos"></div>
 		<div id="tabloRes"></div></br>

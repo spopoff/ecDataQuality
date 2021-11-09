@@ -56,6 +56,8 @@ ECemployment.prototype.getInfos = function(){
 		" ty="+this.employmentType+" mng="+this.managerId+" 1st="+this.firstDateWorkedString+
 		" lst="+this.lastDateWorkedString+" cmp="+this.company;
 };
+var indxJob = [];
+
 function headListEmployment(){
     var table = document.createElement('table');
     var tr = document.createElement('tr');   
@@ -98,6 +100,15 @@ function printRowEmployment(tab, unE){
 	x.id = unE.personId;
 	x.href = "#pkp="+unE.personId;
 	tdv.appendChild(x);
+	//lien vers un job ?
+	const jobUid = indxJob.find(job => job === unU.userId)
+	if(jobUid !== undefined){
+		var xe = document.createElement("A");
+		xe.text = " link to Job ";
+		xe.id = jobUid;
+		xe.href = "#pkj="+jobUid;
+		tdv.appendChild(xe);
+	}
     tr.appendChild(tdv);
     tab.appendChild(tr);
 }

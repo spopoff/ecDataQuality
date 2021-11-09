@@ -104,12 +104,12 @@ function printRowPerson(tab, unP){
 			});
 		}
 	}
-	const unE = indxEmp.find(emp => emp === unP.personId)
-	if(unE !== undefined){
+	const empPid = indxEmp.find(emp => emp === unP.personId)
+	if(empPid !== undefined){
 		var xe = document.createElement("A");
 		xe.text = " link to Employment ";
-		xe.id = unP.personId;
-		xe.href = "#pke="+unP.personId;
+		xe.id = empPid;
+		xe.href = "#pke="+empPid;
 		tdv.appendChild(xe);
 	}
 	tr.appendChild(tdv);
@@ -186,14 +186,38 @@ function getPersonInfo(pkp){
 	}
 }
 /**
+* Fait le tableau d'un Person
+* @param {string} pkm personIdExternal du manager
+*/
+function getPersonUserIdInfo(pkm){
+    clearTablos();
+	var tab = undefined;
+    ecpersons.forEach(function(unP){
+        if(pkm === unP.personIdExternal){
+			tab = headListPerson();
+            printRowPerson(tab, unP);
+        }
+    });
+	if(tab === undefined){
+		setInfoTab(tableErr, "Not found="+pkm);
+	}else{
+		activeOnglet("PersonEc")
+		var div = document.getElementById("tablo");
+		div.appendChild(tab);
+	}
+}
+
+/**
  * Vérifie que les Users sont associés à une Person vérifié
  * Si pas le cas ce sont des comptes sans emplois
+ * fait un index pour les emplois et les jobs
  * @returns {undefined}
  */
 function createPersons(){
 	var indxU = [];
 	ecpersons.forEach(function(unP){
 		indxU.push(unP.personId);
+		indxMng.push(unP.personIdExternal);
 	});
     ecusers.forEach(function(unU){
 		indxUid.push(unU.userId);
@@ -211,5 +235,8 @@ function createPersons(){
     });
 	ecemps.forEach(function(unE){
 		indxEmp.push(unE.personId);
+	});
+	ecjobs.forEach(function(unJ){
+		indxJob.push(unJ.userId);
 	});
 }
