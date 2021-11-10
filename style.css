@@ -5,6 +5,13 @@ img {
     max-height: 80px;
     float: left;
 }
+img.big {
+    max-width: 800px; 
+    max-height: 800px;
+}
+img.large {
+    max-width: 200px; 
+}
 p {
     line-height: 0.8;
 }

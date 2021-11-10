@@ -21,8 +21,8 @@
     </head>
     <body>
         <div id="entete" style="width: 80%">
-            <img src='sap_usr.png' alt="logo" style="margin-right: 10px"/>
-            <h2 id="titre">Sandbox Data Quality v0.5</h2>
+            <img src='sap_usr.png' alt="logo" class="large"/>
+            <h2 id="titre" style="text-align: center;">Sandbox Data Quality v0.5</h2>
             <img src='t34_100.png' alt="logo" style="margin-right: 10px; width: 40px; float: right;margin-top: -50px"/>
         </div>
 		<div class="onglet">
@@ -30,7 +30,8 @@
 			<button id="IdPersonEc" class="tablinks" onclick="openTab(event, 'PersonEc')">Persons</button>
 			<button id="IdEmploymentEc" class="tablinks" onclick="openTab(event, 'EmploymentEc')">Employments</button>
 			<button id="IdJobEc" class="tablinks" onclick="openTab(event, 'JobEc')">Jobs</button>
-			<button class="tablinks" onclick="openTab(event, 'Metrics')">Metrics</button>
+			<button id="IdMetrics" class="tablinks" onclick="openTab(event, 'Metrics')">Metrics</button>
+			<button id="IdModel" class="tablinks" onclick="openTab(event, 'Model')">SAP EC API Model</button>
 		</div>
 		<div id="UserEc" class="tabcontent">
 			<label for="idnNmIdUsr">Partial User name or ID:</label>&nbsp;
@@ -47,6 +48,7 @@
 		<div id="EmploymentEc" class="tabcontent">
 			<label for="idnNmIdEmp">Partial info or ID:</label>&nbsp;
 			<input id="idnNmIdEmp" type="text" size="20" />&nbsp;&nbsp;
+			<label for="hasJob">Linked with Job</label>&nbsp;<input type="checkbox" id="hasJob" name="hasJob">
 			<button onclick="showListEcEmployment()">Show list !</button>
 		</div>
 		<div id="JobEc" class="tabcontent">
@@ -65,6 +67,9 @@
 			<div id="container1" class="boite">
 				<canvas id="chartUn"  class="chart-boite"></canvas>
 			</div>
+		</div>
+		<div id="Model" class="tabcontent500">
+			<img src='sapEcModel.png' alt="logo" class="big"/>
 		</div>
 		<div id="infos"></div>
 		<div id="tabloRes"></div></br>

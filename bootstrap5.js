@@ -74,6 +74,7 @@ function openTab(evt, tabName) {
     }
     var tabGraph = document.getElementsByClassName("tabcontent500");
     tabGraph[0].style.display = "none";
+    tabGraph[1].style.display = "none";
     // Get all elements with class="tablinks" and remove the class "active"
     tablinks = document.getElementsByClassName("tablinks");
     for (i = 0; i < tablinks.length; i++) {
@@ -145,6 +146,7 @@ $(document).ready(function(){
     tabcontent[0].style.display = "block";
     $("#lesAttrs2").hide();
     createPersons();
+	activeOnglet("UserEc")
 });
 /**
  * Retourne le paramètre seulement de l'url

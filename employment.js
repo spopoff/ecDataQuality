@@ -114,26 +114,29 @@ function printRowEmployment(tab, unE){
 }
 /**
  * Fait la liste des Users
- * @param {string} inp
- * @param {boolean} isReal
+ * @param {string} ine
+ * @param {boolean} hasJob
  * @returns {undefined}
  */
-function getListEmployments(ine){
+function getListEmployments(ine, hasJob){
     var tab = headListEmployment();
     var nbP = 0;
     ine = ine.toLowerCase();
     ecemps.forEach(function(unE){
-		if(ine !== ""){
-			var inf = "";
-			inf = unE.getInfos();
-			inf = inf.toLowerCase();
-			if(inf.includes(ine)){
+		if(hasJob && !unE.hasJob){
+		}else{
+			if(ine !== ""){
+				var inf = "";
+				inf = unE.getInfos();
+				inf = inf.toLowerCase();
+				if(inf.includes(ine)){
+					printRowEmployment(tab, unE);
+					nbP++;
+				}
+			}else{
 				printRowEmployment(tab, unE);
 				nbP++;
 			}
-		}else{
-			printRowEmployment(tab, unE);
-			nbP++;
 		}
     });
     setInfoTab(tableRes, "nb employments="+nbP);
@@ -146,9 +149,10 @@ function getListEmployments(ine){
 */
 function showListEcEmployment(){
     var ine = document.getElementById("idnNmIdEmp").value;
+	var hasJob = document.getElementById("hasJob").checked;
     if(ine === undefined) ine = "";
     clearTablos();
-    getListEmployments(ine);
+    getListEmployments(ine, hasJob);
 }	
 /**
  * Fait le tableau d'un seul Emploi
