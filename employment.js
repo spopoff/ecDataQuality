@@ -56,7 +56,8 @@ ECemployment.prototype.getInfos = function(){
 		" ty="+this.employmentType+" mng="+this.managerId+" 1st="+this.firstDateWorkedString+
 		" lst="+this.lastDateWorkedString+" cmp="+this.company;
 };
-var indxJob = [];
+var indxEmp = [];
+var indxEmpUid = [];
 
 function headListEmployment(){
     var table = document.createElement('table');

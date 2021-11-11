@@ -253,6 +253,31 @@ function getBarChartData(objGF){
     }
     return data;
 }
+function getJobStatsForAttr(attrName){
+	var stats = new Map();
+	ecjobs.forEach(function(unJ){
+		if(unJ.hasManager){
+			if(stats.has(unJ[attrName])){
+				var count = stats.get(unJ[attrName]);
+				count++;
+				stats.set(unJ[attrName], count);
+			}else{
+				stats.set(unJ[attrName], 1);
+			}
+		}
+		
+	});
+	return stats;
+}
+function getJobGrafForAttr(objGF, idsTitle, attrName){
+	var stats = getJobStatsForAttr(attrName);
+	var ids = new DataSet(idsTitle);
+	for (let [key, value] of stats) {
+		objGF.addLabel = key;
+		ids.addData = value;
+	}
+	return ids;
+}
 function getData(objGF){
     switch(objGF.code){
         case "2_0":
@@ -278,17 +303,24 @@ function getData(objGF){
             var ids = new DataSet("nb persons");
             var nbP = 0;
 			var nbPU = 0;
+			var nb0E = 0;
 			ecpersons.forEach(function(unP){
 				if(unP.verified){
 					nbPU++;
 				}else{
 					nbP++;
 				}
+				const empPid = indxEmp.find(emp => emp === unP.personId)
+				if(empPid === undefined){
+					nb0E++;
+				}
 			});
             objGF.addLabel = "nb Person with User";
             ids.addData = nbPU;
             objGF.addLabel = "nb Person without User";
             ids.addData = nbP;
+            objGF.addLabel = "nb Person without Employment";
+            ids.addData = nb0E;
             objGF.addDataset = ids;
         break;
         case "2_2":
@@ -314,19 +346,46 @@ function getData(objGF){
             var ids = new DataSet("nb job");
             var nbJ = 0;
 			var nbJM = 0;
+			var nbE = 0;
 			ecjobs.forEach(function(unJ){
 				if(unJ.hasManager){
 					nbJM++;
 				}else{
 					nbJ++;
 				}
+				const uidJ = indxEmpUid.find(uid => uid === unJ.userId)
+				if(uidJ !== undefined){
+					nbE++;
+				}
 			});
             objGF.addLabel = "nb Job with Manager";
             ids.addData = nbJM;
             objGF.addLabel = "nb Job without Manager";
             ids.addData = nbJ;
+            objGF.addLabel = "nb Job with Employment";
+            ids.addData = nbE;
             objGF.addDataset = ids;
         break;
+        case "2_4":
+            //Pertinent Job infos Employee Class
+            objGF.addDataset = getJobGrafForAttr(objGF, "nb per employee class", "employeeClass");
+		break;
+		case "2_5":
+            //Pertinent Job infos Employment Type
+            objGF.addDataset = getJobGrafForAttr(objGF, "nb per employment type", "employmentType");
+		break;
+		case "2_6":
+            //Pertinent Job infos Event
+            objGF.addDataset = getJobGrafForAttr(objGF, "nb per event", "event");
+		break;
+		case "2_7":
+            //Pertinent Job infos Status
+            objGF.addDataset = getJobGrafForAttr(objGF, "nb per employee status", "employeeStatus");
+		break;
+		case "2_8":
+            //Pertinent Job infos Company
+            objGF.addDataset = getJobGrafForAttr(objGF, "nb per company", "company");
+		break;
         case "2_2x":
             //top ten attributes
             var attrs = new Map();
@@ -429,7 +488,6 @@ function getData(objGF){
     }
     return objGF;
 }
-
 function getStatsForAttr(attrName){
     var stats = new Map();
     stats.set("Identities not common", 0);

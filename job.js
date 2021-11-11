@@ -67,6 +67,7 @@ ECjob.prototype.getInfos = function(){
 		" evtnd="+this.endDate+" evt="+this.event+" "+this.eventReason+" cmp="+this.company;
 };
 var indxMng = [];
+var indxJob = [];
 
 function headListJob(){
     var table = document.createElement('table');

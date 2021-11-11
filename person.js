@@ -53,7 +53,6 @@ ECperson.prototype.getInfos = function(){
 		" "+this.displayName;
 };
 var indxUid = [];
-var indxEmp = [];
 
 function headListPerson(){
     var table = document.createElement('table');
@@ -246,5 +245,6 @@ function createPersons(){
 		if(jobUid !== undefined){
 			unE.hasJob = true;
 		}
+		indxEmpUid.push(unE.userId);
 	});
 }
