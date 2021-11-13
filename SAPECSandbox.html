@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
     <head>
-        <title>Sandbox Data Quality v0.6</title>
+        <title>Sandbox Data Quality v0.7</title>
         <meta charset="UTF-8"/>
         <script src='jquery-3.3.1.min.js'></script>
         <script src='Chart.min.js'></script>
@@ -17,21 +17,37 @@
         <script src='ecEmployments.js'></script>
         <script src='ecJobs.js'></script>
         <script src='dataChart.js'></script>
+        <script src='kalitest.js'></script>
+        <script src='ecKalis.js'></script>
         <link rel='stylesheet' type='text/css' href='style.css'/>
     </head>
     <body>
         <div id="entete" style="width: 80%">
             <img src='sap_usr.png' alt="logo" class="large"/>
-            <h2 id="titre" style="text-align: center;">Sandbox Data Quality v0.6</h2>
+            <h2 id="titre" style="text-align: center;">Sandbox Data Quality v0.7</h2>
             <img src='t34_100.png' alt="logo" style="margin-right: 10px; width: 40px; float: right;margin-top: -50px"/>
         </div>
 		<div class="onglet">
+			<button id="IdDataKali" class="tablinks" onclick="openTab(event, 'DataKali')">Data Quality</button>
 			<button id="IdUserEc" class="tablinks" onclick="openTab(event, 'UserEc')">Users</button>
 			<button id="IdPersonEc" class="tablinks" onclick="openTab(event, 'PersonEc')">Persons</button>
 			<button id="IdEmploymentEc" class="tablinks" onclick="openTab(event, 'EmploymentEc')">Employments</button>
 			<button id="IdJobEc" class="tablinks" onclick="openTab(event, 'JobEc')">Jobs</button>
 			<button id="IdMetrics" class="tablinks" onclick="openTab(event, 'Metrics')">Metrics</button>
 			<button id="IdModel" class="tablinks" onclick="openTab(event, 'Model')">SAP EC API Model</button>
+		</div>
+		<div id="DataKali" class="tabcontent">
+            <label for="kali">Data Quality Test:</label>&nbsp;<select id="kali" class="orgas2" name="lesKali">
+                <option value="kali1">User account status when Job Termination</option>
+                <option value="kali2">Manager User access</option>
+            </select>&nbsp;&nbsp;
+            <label for="kaliState">State filter:</label>&nbsp;<select id="kaliState" class="orgas2" name="lesKaliState">
+                <option value="ALL" selected="true">All States</option>
+                <option value="CONFORM">Conform to conformance test</option>
+                <option value="DEFECT">Break the conformance test</option>
+                <option value="NA">Non applicable</option>
+            </select>&nbsp;&nbsp;
+			<button onclick="showKaliTest()">Show test !</button>
 		</div>
 		<div id="UserEc" class="tabcontent">
 			<label for="idnNmIdUsr">Partial User name or ID:</label>&nbsp;

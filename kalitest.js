@@ -32,34 +32,13 @@ Le fait que vous puissiez accéder à cet en-tête signifie que vous avez
 pris connaissance de la licence [CeCILL|CeCILL-B|CeCILL-C], et que vous en avez accepté les
 termes.
  */
-/* global ecjobs, tableRes, tooltip, Tooltips, lastSelState, lastSel, lastSelComp, comps, ecusers */
-class ECjob{
-    constructor(positionEntryDate, managerId, emplStatus, employeeStatus, emplClass, employeeClass,
-		emplmType, employmentType, division, location, company, jobTitle,
-		event, eventReason, position, businessUnit, startDate, endDate, userId){
-		this.positionEntryDate = positionEntryDate;
-		this.managerId = managerId;
-		this.emplStatus = emplStatus;
-		this.emplClass = emplClass;
-		this.employeeClass = employeeClass;
-		this.employmentType = employmentType;
-		this.emplmType = emplmType;
-		this.employeeStatus = employeeStatus;
-		this.division = division;
-		this.location = location;
-		this.company = company;
-		this.jobTitle = jobTitle;
-		this.event = event;
-		this.eventReason = eventReason;
-		this.position = position;
-		this.businessUnit = businessUnit;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.userId = userId;
-		this.personIdExternal = userId;
-		this.isMultiJob = false;
-		this.hasManager = false;
-		this.hasUser = false;
+/* global eckali, tableRes, tooltip, Tooltips, lastSelState, lastSel, lastSelComp, comps, ecusers */
+class KalitestResult{
+    constructor(qualState, dataObject, name, reasons){
+		this.qualState = qualState;
+		this.dataObject = dataObject;
+		this.name = name;
+		this.reasons = reasons;
     }
 }
 ECjob.prototype.getInfos = function(){
@@ -67,22 +46,52 @@ ECjob.prototype.getInfos = function(){
 		" ty="+this.employmentType+" mng="+this.managerId+" evtst="+this.startDate+
 		" evtnd="+this.endDate+" evt="+this.event+" "+this.eventReason+" cmp="+this.company;
 };
-var indxMng = [];
-var indxJob = [];
 
-function headListJob(){
+function headListKali(){
     var table = document.createElement('table');
     var tr = document.createElement('tr');   
     var thu = document.createElement('th');
-    var txhu = document.createTextNode('personIdExternal / userId');
+    var txhu = document.createTextNode('Data Quality Status');
     thu.appendChild(txhu);
     tr.appendChild(thu);
     var thv = document.createElement('th');
-    var txhv = document.createTextNode('infos (st=status, cls= employee class, ty=Employment type, mng=Manager Id, evtst=event start, evtnd=event end, evt=event, cmp=company');
+    var txhv = document.createTextNode('Datas tested');
     thv.appendChild(txhv);
     tr.appendChild(thv);
     table.appendChild(tr);
     return table;
+}
+function objectToString(obj){
+	var sep = "";
+	var ret = "";
+	for (const key of Object.keys(obj)) {
+	  const val = obj[key];
+	  ret += sep+key+":"+val;
+	  sep = ", ";
+	}
+	return ret;
+}
+function getLink(obj, td){
+	const xe = document.createElement("A");
+	var found = false;
+	for (const key of Object.keys(obj)) {
+		const val = obj[key];
+		if(key === "personIdExternal"){
+			found = true;
+			xe.text = " link to Person ";
+			xe.id = val;
+			xe.href = "#pkm="+val;
+		}else if(key === "userId"){
+			found = true;
+			xe.text = " link to User ";
+			xe.id = val;
+			xe.href = "#pku="+val;
+			found = true;
+		}
+	}
+	if(found){
+		td.appendChild(xe);
+	}
 }
 /**
  * Ajoute une ligne par Job dans le tableau
@@ -90,87 +99,53 @@ function headListJob(){
  * @param {ECjob} unJ
  * @returns {undefined}
  */
-function printRowJob(tab, unJ){
+function printRowKali(tab, unK){
     var tr = document.createElement('tr');   
     var tdu = document.createElement('td');
-    var txdu = document.createTextNode(unJ.personIdExternal+" / "+unJ.userId);
+    var txdu = document.createTextNode(unK.qualState+" "+unK.reasons);
     tdu.appendChild(txdu);
     tr.appendChild(tdu);
     var tdv = document.createElement('td');
-	var txdv = document.createTextNode(unJ.getInfos());
+	var txdv = document.createTextNode(objectToString(unK.dataObject));
 	tdv.appendChild(txdv);
-	var x = document.createElement("A");
-	x.text = " linked  to Person "+unJ.personIdExternal;
-	x.id = unJ.personIdExternal;
-	x.href = "#pkx="+unJ.personIdExternal;
-	tdv.appendChild(x);
-	//lien vers manager
-	if(unJ.hasManager){
-		var xx = document.createElement("A");
-		xx.text = " linked  to Manager "+unJ.managerId;
-		xx.id = unJ.managerId;
-		xx.href = "#pkm="+unJ.managerId;
-		tdv.appendChild(xx);
-	}
+	getLink(unK.dataObject, tdv);
     tr.appendChild(tdv);
     tab.appendChild(tr);
 }
 /**
  * Fait la liste des Jobs
- * @param {string} inj
+ * @param {string} kaliName
+ * @param {string} filter
  * @returns {undefined}
  */
-function getListJobs(inj){
-    var tab = headListJob();
-    var nbP = 0;
-    inj = inj.toLowerCase();
-    ecjobs.forEach(function(unJ){
-		if(inj !== ""){
-			var inf = "";
-			inf = unJ.userId+" "+unJ.getInfos();
-			inf = inf.toLowerCase();
-			if(inf.includes(inj)){
-				printRowJob(tab, unJ);
-				nbP++;
-			}
-		}else{
-			printRowJob(tab, unJ);
-			nbP++;
+function getKaliTest(kaliName, filter){
+    var tab = headListKali();
+    var nbK = 0;
+	var sel = []
+    eckali.forEach(function(unK){
+		if(kaliName === unK.name && filter === "ALL"){
+			sel.push(unK)
+			nbK++;
+		}else if(kaliName === unK.name && filter === unK.qualState){
+			sel.push(unK)
+			nbK++;
 		}
     });
-    setInfoTab(tableRes, "nb jobs="+nbP);
+	sel = sel.sort((k1, k2) => (k1.qualState > k2.qualState) ? 1 : -1);
+	sel.forEach(function(unK){
+		printRowKali(tab, unK);
+    });
+    setInfoTab(tableRes, "nb case="+nbK);
     var div = document.getElementById("tablo");
     div.appendChild(tab);
     
 }
 /**
-* fait une liste de Job
+* Donne le rapport pour un test qualité
 */
-function showListEcJob(){
-    var inj = document.getElementById("idnNmIdJob").value;
-    if(inj === undefined) inj = "";
+function showKaliTest(){
+    var choix = $("#kali :selected").val();
+	var filter = $("#kaliState :selected").val();
     clearTablos();
-    getListJobs(inj);
+    getKaliTest(choix, filter);
 }	
-/**
- * Fait le tableau d'un seul Job
- * @param {type} pkj
- * @returns {undefined}
- */
-function getJobInfo(pkj){
-    clearTablos();
-	var tab = undefined;
-    ecjobs.forEach(function(unJ){
-        if(pkj === unJ.personIdExternal){
-			tab = headListJob();
-            printRowJob(tab, unJ);
-        }
-    });
-	if(tab === undefined){
-		setInfoTab(tableErr, "Not found="+pkj);
-	}else{
-		activeOnglet("JobEc")
-		var div = document.getElementById("tablo");
-		div.appendChild(tab);
-	}
-}

@@ -216,6 +216,8 @@ var job802821 = new ECjob("","80281","4595","Active","4662","Active","3631","Sal
 ecjobs.push(job802821);
 var job802831 = new ECjob("","200011","4595","Active","4662","Active","3631","Salaried staff","null","null","BestRun Company","Chief Learning Officer","Pay Rate Change","PAYOTH","50014280","CORP","2021-01-15","2050-04-20","80283");
 ecjobs.push(job802831);
+var job802851 = new ECjob("","80283","4595","Active","4662","Active","3631","Salaried staff","null","null","BestRun Company","Director Center of Excellence","Pay Rate Change","PAYOTH","50014283","CORP","2017-01-01","2050-04-20","80285");
+ecjobs.push(job802851);
 var job802861 = new ECjob("","80283","4595","Active","4662","Active","3631","Salaried staff","null","null","BestRun Company","Director Learning","Pay Rate Change","PAYOTH","50014284","CORP","2017-01-01","2050-04-20","80286");
 ecjobs.push(job802861);
 var job802871 = new ECjob("","80279","4595","Active","4662","Active","3631","Salaried staff","null","null","BestRun Company","Employee Relations VP","Pay Rate Change","PAYOTH","50014287","CORP","2017-01-01","2050-04-20","80287");
@@ -1410,6 +1412,8 @@ var jobnsmathers1 = new ECjob("","rharris","4595","Active","4662","Active","3631
 ecjobs.push(jobnsmathers1);
 var jobagarvey1 = new ECjob("","dsewell","4595","Active","4662","Active","3631","Salaried staff","null","null","BestRun Company","Lead Designer","Hire","HIRNEW","3000802","PRODS","2013-08-01","2050-04-20","agarvey");
 ecjobs.push(jobagarvey1);
+var job1031951 = new ECjob("","103191","4595","Active","4662","Active","3631","Salaried staff","null","null","BestRun Netherlands","Planning & Scheduling Manager","Hire","HIRNEW","5050383","PRODS","2017-01-01","2050-04-20","103195");
+ecjobs.push(job1031951);
 var job1032021 = new ECjob("","102031","4595","Active","4662","Active","3631","Salaried staff","null","null","BestRun Qatar","Payroll Manager","Hire","HIRNEW","3000837","CORP","2017-01-01","2050-04-20","103202");
 ecjobs.push(job1032021);
 var job1032051 = new ECjob("","200005","4595","Active","4662","Active","3631","Salaried staff","null","null","BestRun Canada","Payroll Manager","Hire","HIRNEW","3000840","CORP","2017-01-01","2050-04-20","103205");
@@ -1510,8 +1514,6 @@ var jobsmeias1 = new ECjob("","pescola","4595","Active","4662","Active","3631","
 ecjobs.push(jobsmeias1);
 var jobjparca1 = new ECjob("","sMeias","4595","Active","4662","Active","3631","Salaried staff","null","null","Bestrun Portugal","Program Management Office","Pay Rate Change","PAYOTH","3000910","PRODS","2017-09-20","2050-04-20","jparca");
 ecjobs.push(jobjparca1);
-var jobdawang1 = new ECjob("","jfilho","4595","Active","4662","Active","3631","Salaried staff","null","null","Bestrun Portugal","Payroll Admin","Hire","HIRNEW","3000912","CORP","2016-01-01","2050-04-20","dawang");
-ecjobs.push(jobdawang1);
 var jobfalexandre1 = new ECjob("","jfilho","4595","Active","4662","Active","3631","Salaried staff","null","null","Bestrun Portugal","HR Business Partner","Data Change","DATACHG","3000913","CORP","2017-02-01","2050-04-20","falexandre");
 ecjobs.push(jobfalexandre1);
 var jobbvonmoos1 = new ECjob("","101001","4595","Active","4662","Active","3632","Senior staff","null","null","BestRun Switzerland","President Switzerland","Pay Rate Change","PAYOTH","3000860","CORP","2017-10-06","2050-04-20","bvonmoos");

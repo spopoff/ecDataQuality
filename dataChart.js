@@ -304,6 +304,8 @@ function getData(objGF){
             var nbP = 0;
 			var nbPU = 0;
 			var nb0E = 0;
+			var nbM = 0;
+			var nbPUM = 0;
 			ecpersons.forEach(function(unP){
 				if(unP.verified){
 					nbPU++;
@@ -314,6 +316,12 @@ function getData(objGF){
 				if(empPid === undefined){
 					nb0E++;
 				}
+				if(unP.isManager){
+					nbM++;
+				}
+				if(unP.isManager && unP.verified){
+					nbPUM++;
+				}
 			});
             objGF.addLabel = "nb Person with User";
             ids.addData = nbPU;
@@ -321,6 +329,10 @@ function getData(objGF){
             ids.addData = nbP;
             objGF.addLabel = "nb Person without Employment";
             ids.addData = nb0E;
+            objGF.addLabel = "nb Person is Manager";
+            ids.addData = nbM;
+            objGF.addLabel = "nb Person is Manager with User";
+            ids.addData = nbPUM;
             objGF.addDataset = ids;
         break;
         case "2_2":
@@ -347,6 +359,7 @@ function getData(objGF){
             var nbJ = 0;
 			var nbJM = 0;
 			var nbE = 0;
+			var nbU = 0;
 			ecjobs.forEach(function(unJ){
 				if(unJ.hasManager){
 					nbJM++;
@@ -357,6 +370,9 @@ function getData(objGF){
 				if(uidJ !== undefined){
 					nbE++;
 				}
+				if(unJ.hasUser){
+					nbU++;
+				}
 			});
             objGF.addLabel = "nb Job with Manager";
             ids.addData = nbJM;
@@ -364,6 +380,8 @@ function getData(objGF){
             ids.addData = nbJ;
             objGF.addLabel = "nb Job with Employment";
             ids.addData = nbE;
+            objGF.addLabel = "nb Job with User";
+            ids.addData = nbU;
             objGF.addDataset = ids;
         break;
         case "2_4":

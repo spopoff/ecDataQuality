@@ -52,6 +52,7 @@ var allAttrs = [];
 var allAttrsEc = [];
 var ecusers = [];
 var ecpersons = [];
+var eckali = [];
 var ecemps = [];
 var ecjobs = [];
 var lastSel = [];
@@ -146,7 +147,7 @@ $(document).ready(function(){
     tabcontent[0].style.display = "block";
     $("#lesAttrs2").hide();
     createPersons();
-	activeOnglet("UserEc")
+	activeOnglet("DataKali")
 });
 /**
  * Retourne le paramètre seulement de l'url

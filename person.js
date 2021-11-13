@@ -46,6 +46,7 @@ class ECperson{
         this.associatedUserIds = [];
 		//associé à User par défaut
 		this.verified = false;
+		this.isManager = false;
     }
 }
 ECperson.prototype.getInfos = function(){
@@ -237,6 +238,12 @@ function createPersons(){
 		const mngUid = indxMng.find(mUid => mUid === unJ.managerId);
 		if(mngUid !== undefined){
 			unJ.hasManager = true;
+			const unP = ecpersons.find(per => per.personIdExternal === mngUid);
+			unP.isManager = true;
+		}
+		const unU = ecusers.find(usr => usr.userId === unJ.userId)
+		if(unU !== undefined){
+			unJ.hasUser = true;
 		}
 	});
 	ecemps.forEach(function(unE){
