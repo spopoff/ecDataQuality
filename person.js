@@ -35,11 +35,14 @@ termes.
 /* global ecpersons, tableRes, tooltip, Tooltips, lastSelState, lastSel, lastSelComp, comps, ecusers */
 
 class ECperson{
-    constructor(personId, personIdExternal, nativePreferredLang, preferredName, countryOfBirth,
-		displayName){
+    constructor(personId, personIdExternal, nativePreferredLang, preferredName,
+		firstName, vide, lastName, countryOfBirth, displayName){
         this.personId = personId;
         this.personIdExternal = personIdExternal;
         this.nativePreferredLang = nativePreferredLang;
+        this.preferredName = preferredName;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.preferredName = preferredName;
 		this.countryOfBirth = countryOfBirth;
 		this.displayName = displayName;
@@ -63,7 +66,7 @@ function headListPerson(){
     tha.appendChild(txha);
     tr.appendChild(tha);
     var thu = document.createElement('th');
-    var txhu = document.createTextNode('personIdExternal / preferredName');
+    var txhu = document.createTextNode('personIdExternal / firstName lastName');
     thu.appendChild(txhu);
     tr.appendChild(thu);
     var thv = document.createElement('th');
@@ -86,7 +89,8 @@ function printRowPerson(tab, unP){
     tda.appendChild(txda);
     tr.appendChild(tda);
     var tdu = document.createElement('td');
-    var txdu = document.createTextNode(unP.personIdExternal+" "+unP.preferredName);
+    var txdu = document.createTextNode(unP.personIdExternal+" "+unP.firstName
+		+" "+unP.lastName);
     tdu.appendChild(txdu);
     tr.appendChild(tdu);
     var tdv = document.createElement('td');
