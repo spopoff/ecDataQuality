@@ -73,6 +73,8 @@ function openTab(evt, tabName) {
     for (i = 0; i < tabcontent.length; i++) {
       tabcontent[i].style.display = "none";
     }
+    tabComp = document.getElementsByClassName("tabcontent200");
+	tabComp[0].style.display = "none";
     var tabGraph = document.getElementsByClassName("tabcontent500");
     tabGraph[0].style.display = "none";
     tabGraph[1].style.display = "none";
@@ -142,7 +144,7 @@ $(document).ready(function(){
     th1.appendChild(txh1);
     tr.appendChild(th1);
     tableErr.appendChild(tr);
-    //setSelectAttrsEc();
+    setSelectAttrs();
     var tabcontent = document.getElementsByClassName("tabcontent");
     tabcontent[0].style.display = "block";
     $("#lesAttrs2").hide();

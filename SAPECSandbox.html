@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
     <head>
-        <title>Sandbox Data Quality v0.8</title>
+        <title>Sandbox Data Quality v0.9</title>
         <meta charset="UTF-8"/>
         <script src='jquery-3.3.1.min.js'></script>
         <script src='Chart.min.js'></script>
@@ -19,16 +19,19 @@
         <script src='dataChart.js'></script>
         <script src='kalitest.js'></script>
         <script src='ecKalis.js'></script>
+        <script src='compareSource.js'></script>
+        <script src='compIdNvsAPI.js'></script>
         <link rel='stylesheet' type='text/css' href='style.css'/>
     </head>
     <body>
         <div id="entete" style="width: 80%">
             <img src='sap_usr.png' alt="logo" class="large"/>
-            <h2 id="titre" style="text-align: center;">Sandbox Data Quality v0.8</h2>
+            <h2 id="titre" style="text-align: center;">Sandbox Data Quality v0.9</h2>
             <img src='t34_100.png' alt="logo" style="margin-right: 10px; width: 40px; float: right;margin-top: -50px"/>
         </div>
 		<div class="onglet">
 			<button id="IdDataKali" class="tablinks" onclick="openTab(event, 'DataKali')">Data Quality</button>
+			<button id="IdCompare" class="tablinks" onclick="openTab(event, 'Compare')">Compare Sources</button>
 			<button id="IdUserEc" class="tablinks" onclick="openTab(event, 'UserEc')">Users</button>
 			<button id="IdPersonEc" class="tablinks" onclick="openTab(event, 'PersonEc')">Persons</button>
 			<button id="IdEmploymentEc" class="tablinks" onclick="openTab(event, 'EmploymentEc')">Employments</button>
@@ -49,6 +52,39 @@
                 <option value="NA">Non applicable</option>
             </select>&nbsp;&nbsp;
 			<button onclick="showKaliTest()">Show test !</button>
+		</div>
+		<div id="Compare" class="tabcontent200">
+			<div class="box34">
+				<label for="cmpRpt">Report Employee diffences:</label>&nbsp;<select id="cmpRpt" class="orgas2" name="lesRpts">
+					<option value="0">All type of difference</option>
+					<option value="1">Both attribute are null</option>
+					<option value="2">One of both is null</option>
+					<option value="3">Both are empty</option>
+					<option value="4">One of both is empty</option>
+					<option value="6">Different</option>
+					<option value="7">Case differencies</option>
+					<option value="8">Both attributes equals</option>
+					<option value="9">One of both is non available</option>
+					<option value="78">Quite equals</option>
+					<option value="23469">Can't match</option>
+				</select><br/>
+				<label for="idnNmId">Partial User name or ID:</label>&nbsp;
+				<input id="idnNmId" type="text" size="20" />
+				<br/><label for="isIdnt">Without Identity</label>&nbsp;<input type="checkbox" id="noIdnt" name="isIdnt"><br/>
+				<button onclick="showReportEc()">Show report !</button>
+				&nbsp;<button onclick="getFileReportEc()">export report !</button>
+			</div>
+			<div class="box33">
+				<label for="cmpAttr">Matching Attributes:</label><br/><select multiple size="10" id="cmpAttr" class="orgas2" name="lesAttrs">
+					<option value="All" selected="true">All Attributes</option>
+				</select>&nbsp;&nbsp;
+			</div>
+			<div class="box33">
+				<label for="cmpAddAttr">Additional Attributes:</label><br/><select multiple size="10" id="cmpAddAttr" class="orgas2" name="lesAttrs">
+					<option value="All" >All Attributes</option>
+				</select><br/>
+				<select id="cmpAttr2" class="orgas2" name="lesAttrs2" style="visibility: hidden"></select>
+			</div>
 		</div>
 		<div id="UserEc" class="tabcontent">
 			<label for="idnNmIdUsr">Partial User name or ID:</label>&nbsp;
