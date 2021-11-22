@@ -55,7 +55,7 @@ class CompareSource{
 }
 //case:8,result:"equals",attribut:"siteCity",production:"GREEN RIVER",sandbox:"GREEN RIVER"})
 
-function addToReportEc(table, nomId, res){
+function addToReportEc(table, nomId, res, personId){
     if(nomId !== ""){
         var trn = document.createElement('tr');
         var td1 = document.createElement('td');
@@ -63,6 +63,13 @@ function addToReportEc(table, nomId, res){
         td1.className = "centre";
         //var txd1 = document.createTextNode(nomId);
         td1.innerHTML = nomId;
+		if(personId !== undefined){
+			const lien = document.createElement('A');
+			lien.text = " link to Person";
+			lien.id = personId;
+			lien.href = "#pkp="+personId;
+			td1.appendChild(lien);
+		}
         trn.appendChild(td1);
         table.appendChild(trn);
     }
@@ -168,7 +175,7 @@ function headTabCompEc(nameCol3){
     return table;
 }
 function printCompareEc(comp, nomId, tab, addAttrs){
-    addToReportEc(tab, nomId, null);
+    addToReportEc(tab, nomId, null, comp.personId);
     addAdditionalsEc(tab, comp.results, addAttrs);
 }
 
@@ -218,9 +225,6 @@ function getTypedReportEc(tiipe, nmId, attrs, addAttrs, withIdnt, isFile, nameCo
                 var ec = compsEc.get(cpId);
                 if(cmn === undefined && ec !== undefined){
                     var nomId = ec.cpId+" "+ec.fullName+" "+ec.personId;
-                    if(ec.empNbr !== "unknown"){
-                        nomId += " "+ec.empNbr;
-                    }
                     printCompareEc(ec, nomId, tab, addAttrs);
                     countId++;
                 }
@@ -231,9 +235,6 @@ function getTypedReportEc(tiipe, nmId, attrs, addAttrs, withIdnt, isFile, nameCo
                 var comp = compsEc.get(cpId);
                 if(comp !== undefined){
                     var nomId = comp.cpId+" "+comp.fullName+" "+comp.personId;
-                    if(comp.empNbr !== "unknown"){
-                        nomId += " "+comp.empNbr;
-                    }
                     printCompareEc(comp, nomId, tab, addAttrs);
                     countId++;
                 } else if(lastSelState === 2 && !isNotInCmn){
@@ -249,9 +250,7 @@ function getTypedReportEc(tiipe, nmId, attrs, addAttrs, withIdnt, isFile, nameCo
     var nbComp = 0;
     for(let comp of comps.values()){
         var nomId = comp.cpId+" "+comp.fullName+" "+comp.personId;
-        if(comp.empNbr !== "unknown"){
-            nomId += " "+comp.empNbr;
-        }
+		var perId = comp.personId;
         if(nomId.toLowerCase().includes(nmId.toLowerCase()) || nmId === ""){
             var once = true;
             var found = false;
@@ -267,10 +266,10 @@ function getTypedReportEc(tiipe, nmId, attrs, addAttrs, withIdnt, isFile, nameCo
                         }else{
                             if(once){
                                 if(!isFile){
-                                    addToReportEc(tab, nomId, res);
+                                    addToReportEc(tab, nomId, res, perId);
                                 }else{
                                     if(withIdnt){
-                                        text += comp.cpId+";"+comp.fullName+";"+comp.personId+";"+comp.empNbr;
+                                        text += comp.cpId+";"+comp.fullName+";"+comp.personId;
                                     }
                                 }
                                 once = false;
@@ -279,7 +278,7 @@ function getTypedReportEc(tiipe, nmId, attrs, addAttrs, withIdnt, isFile, nameCo
                                 ajoute = true;
                             }else{
                                 if(!isFile){
-                                    addToReportEc(tab, "", res);
+                                    addToReportEc(tab, "", res, undefined);
                                 }
                             }
                         }
@@ -308,7 +307,7 @@ function getTypedReportEc(tiipe, nmId, attrs, addAttrs, withIdnt, isFile, nameCo
         //on reprend le Map et on fait le tableau
         mapCase.forEach((value, key)=>{
             if(!isFile){
-                addToReportEc(tab, "", value);
+                addToReportEc(tab, "", value, undefined);
             }else{
                 text += addColumns(value, null);
             }

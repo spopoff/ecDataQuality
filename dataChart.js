@@ -404,6 +404,10 @@ function getData(objGF){
             //Pertinent Job infos Company
             objGF.addDataset = getJobGrafForAttr(objGF, "nb per company", "company");
 		break;
+		case "2_9":
+            //Pertinent Job infos Company
+            objGF.addDataset = getJobGrafForAttr(objGF, "nb per business unit", "businessUnit");
+		break;
         case "2_2x":
             //top ten attributes
             var attrs = new Map();
