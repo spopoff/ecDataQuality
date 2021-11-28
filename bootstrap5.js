@@ -53,6 +53,7 @@ var allAttrsEc = [];
 var ecusers = [];
 var ecpersons = [];
 var eckali = [];
+var apiLCSrules = [];
 var ecemps = [];
 var ecjobs = [];
 var lastSel = [];
@@ -75,6 +76,7 @@ function openTab(evt, tabName) {
     }
     tabComp = document.getElementsByClassName("tabcontent200");
 	tabComp[0].style.display = "none";
+	tabComp[1].style.display = "none";
     var tabGraph = document.getElementsByClassName("tabcontent500");
     tabGraph[0].style.display = "none";
     tabGraph[1].style.display = "none";
@@ -150,6 +152,13 @@ $(document).ready(function(){
     $("#lesAttrs2").hide();
     createPersons();
 	activeOnglet("DataKali")
+    var selRules = document.getElementById("cmpLCS");
+    apiLCSrules.forEach(function(rule){
+        var o0 = document.createElement("option");
+        o0.text = rule.name;
+        o0.value = rule.name;
+        selRules.appendChild(o0);
+    });
 });
 /**
  * Retourne le paramètre seulement de l'url

@@ -60,6 +60,8 @@ class ECjob{
 		this.isMultiJob = false;
 		this.hasManager = false;
 		this.hasUser = false;
+		//ruleName, ruleLCS, enabled, event, classe, status, dateGap
+		this.lcs = {};
     }
 }
 ECjob.prototype.getInfos = function(){
